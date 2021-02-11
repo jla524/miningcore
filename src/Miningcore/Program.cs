@@ -222,7 +222,7 @@ namespace Miningcore
         {
             configFile = null;
 
-            var app = new CommandLineApplication(false)
+            var app = new CommandLineApplication()
             {
                 FullName = "MiningCore - Pool Mining Engine",
                 ShortVersionGetter = () => $"v{Assembly.GetEntryAssembly().GetName().Version}",
@@ -728,11 +728,12 @@ namespace Miningcore
                     services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
                     services.AddMvc()
-                        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                        // .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                         .AddControllersAsServices()
                         .AddJsonOptions(options =>
                         {
-                            options.SerializerSettings.Formatting = Formatting.Indented;
+                            // options.SerializerSettings.Formatting = Formatting.Indented;
+                            options.JsonSerializerOptions.WriteIndented = true;
                         });
 
                     // Gzip Compression
@@ -755,11 +756,11 @@ namespace Miningcore
                     UseIpWhiteList(app, true, new[] { "/metrics" }, clusterConfig.Api?.MetricsIpWhitelist);
 
                     app.UseResponseCompression();
-                    app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                    // app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
                     app.UseWebSockets();
                     app.MapWebSocketManager("/notifications", app.ApplicationServices.GetService<WebSocketNotificationsRelay>());
                     app.UseMetricServer();
-                    app.UseMvc();
+                    // app.UseMvc();
                 })
                  .UseKestrel(options =>
                 {
