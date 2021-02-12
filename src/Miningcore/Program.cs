@@ -728,13 +728,17 @@ namespace Miningcore
                     services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
                     services.AddMvc()
-                        // .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                         .AddControllersAsServices()
                         .AddJsonOptions(options =>
                         {
-                            // options.SerializerSettings.Formatting = Formatting.Indented;
                             options.JsonSerializerOptions.WriteIndented = true;
+                        })
+                        .AddMvcOptions(options =>
+                        {
+                            options.EnableEndpointRouting = false;
                         });
+                    
+                    // MvcOptions.EnableEndpointRouting = false;
 
                     // Gzip Compression
                     services.AddResponseCompression();
@@ -760,7 +764,7 @@ namespace Miningcore
                     app.UseWebSockets();
                     app.MapWebSocketManager("/notifications", app.ApplicationServices.GetService<WebSocketNotificationsRelay>());
                     app.UseMetricServer();
-                    // app.UseMvc();
+                    app.UseMvc();
                 })
                  .UseKestrel(options =>
                 {
