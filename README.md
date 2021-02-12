@@ -54,13 +54,13 @@ This software comes with a built-in donation of 0.1% per block-reward to support
 
 ### Runtime Requirements on Windows
 
-- [.Net Core 2.2 Runtime](https://www.microsoft.com/net/download/core)
+- [.Net Core 5.0 Runtime](https://www.microsoft.com/net/download/core)
 - [PostgreSQL Database](https://www.postgresql.org/)
 - Coin Daemon (per pool)
 
 ### Runtime Requirements on Linux
 
-- [.Net Core 2.2 SDK](https://www.microsoft.com/net/download/core)
+- [.Net Core 5.0 SDK](https://www.microsoft.com/net/download/core)
 - [PostgreSQL Database](https://www.postgresql.org/)
 - Coin Daemon (per pool)
 - Miningcore needs to be built from source on Linux. Refer to the section further down below for instructions.
@@ -124,7 +124,7 @@ Once you have done this for all of your existing pools you should now restore yo
 
 ### Building from Source
 
-#### Building on Ubuntu 16.04
+#### Building on Ubuntu 20.04
 
 ```console
 $ wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
@@ -132,25 +132,25 @@ $ sudo dpkg -i packages-microsoft-prod.deb
 $ sudo apt-get update -y
 $ sudo apt-get install apt-transport-https -y
 $ sudo apt-get update -y
-$ sudo apt-get -y install dotnet-sdk-2.2 git cmake build-essential libssl-dev pkg-config libboost-all-dev libsodium-dev libzmq5
+$ sudo apt-get -y install dotnet-sdk-5.0 git cmake build-essential libssl-dev pkg-config libboost-all-dev libsodium-dev libzmq5
 $ git clone https://github.com/coinfoundry/miningcore
 $ cd miningcore/src/Miningcore
-$ dotnet publish -c Release --framework netcoreapp2.2  -o ../../build
+$ dotnet publish -c Release --framework netcoreapp5.0  -o ../../build
 ```
 
 #### Building on Windows
 
-Download and install the [.Net Core 2.2 SDK](https://www.microsoft.com/net/download/core)
+Download and install the [.Net Core 5.0 SDK](https://www.microsoft.com/net/download/core)
 
 ```dosbatch
 > git clone https://github.com/coinfoundry/miningcore
 > cd miningcore/src/Miningcore
-> dotnet publish -c Release --framework netcoreapp2.2  -o ..\..\build
+> dotnet publish -c Release --framework netcoreapp5.0  -o ..\..\build
 ```
 
 #### Building on Windows - Visual Studio
 
-- Download and install the [.Net Core 2.2 SDK](https://www.microsoft.com/net/download/core)
+- Download and install the [.Net Core 5.0 SDK](https://www.microsoft.com/net/download/core)
 - Install [Visual Studio 2017](https://www.visualstudio.com/vs/). Visual Studio Community Edition is fine.
 - Open `Miningcore.sln` in VS 2017
 
