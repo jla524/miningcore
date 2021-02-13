@@ -738,13 +738,17 @@ namespace Miningcore
                             options.EnableEndpointRouting = false;
                         });
                     
-                    // MvcOptions.EnableEndpointRouting = false;
-
                     // Gzip Compression
                     services.AddResponseCompression();
 
                     // Cors
-                    services.AddCors();
+                    services.AddCors(options =>
+                    {
+                        options.AddPolicy("CorsPolicy",
+                            builder => builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader());
+                    });
 
                     // WebSockets
                     services.AddWebSocketManager();
@@ -760,7 +764,7 @@ namespace Miningcore
                     UseIpWhiteList(app, true, new[] { "/metrics" }, clusterConfig.Api?.MetricsIpWhitelist);
 
                     app.UseResponseCompression();
-                    // app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                    app.UseCors("CorsPolicy");
                     app.UseWebSockets();
                     app.MapWebSocketManager("/notifications", app.ApplicationServices.GetService<WebSocketNotificationsRelay>());
                     app.UseMetricServer();
